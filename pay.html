@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redirigiendo...</title>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const amount = params.get('amount') || '0.00';
+      const description = params.get('description') || '';
+      const url = `taptopaynfc://pay?amount=${amount}&description=${encodeURIComponent(description)}`;
+      window.location.href = url;
+    </script>
+  </head>
+  <body>
+    <p>Redirigiendo a la app de pagos...</p>
+  </body>
+</html>
