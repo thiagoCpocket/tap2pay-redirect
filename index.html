@@ -1,16 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <title>Redirigiendo...</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirigiendo a TapToPay NFC</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        color: white;
+        text-align: center;
+        padding: 50px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1.2em;
+      }
+
+      .spinner {
+        margin: 30px auto;
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .fallback-btn {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: white;
+        color: #0072ff;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
     <script>
       const params = new URLSearchParams(window.location.search);
-      const amount = params.get('amount') || '0.00';
-      const description = params.get('description') || '';
+      const amount = params.get("amount") || "0.00";
+      const description = params.get("description") || "";
       const url = `taptopaynfc://pay?amount=${amount}&description=${encodeURIComponent(description)}`;
-      window.location.href = url;
+
+      // Intentar redirigir automáticamente
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1500);
+
+      // Fallback manual
+      function redirigirManualmente() {
+        window.location.href = url;
+      }
     </script>
   </head>
   <body>
-    <p>Redirigiendo a la app de pagos...</p>
+    <h1>Redirigiendo a la app de pagos...</h1>
+    <p>Estamos procesando tu solicitud de pago por <strong id="amount"></strong>.</p>
+    <div class="spinner"></div>
+    <button class="fallback-btn" onclick="redirigirManualmente()">Abrir la app manualmente</button>
+
+    <script>
+      // Mostrar monto en pantalla
+      document.getElementById("amount").textContent = `$${amount}`;
+    </script>
   </body>
 </html>
